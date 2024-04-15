@@ -149,6 +149,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
   const router = useRouter()
   const lite = useSearchParam('lite')
 
+  // TODOCUSTOM: why useMemo? you can just implement in the component itself down below for lazy load ig. THAT'S IF ONLY IT DOSEN'T WORKING.
   const components = React.useMemo(
     () => ({
       nextImage: Image,
