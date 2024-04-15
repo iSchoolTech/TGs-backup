@@ -48,6 +48,8 @@ async function getAllPagesImpl(
       }
 
       const block = recordMap.block[pageId]?.value
+      const getProperty = getPageProperty("name", block, recordMap) //TDOO: check the name of the property
+      console.log(getProperty)
       if (!(getPageProperty<boolean|null>('Public', block, recordMap) ?? true)) {
         return map
       }
