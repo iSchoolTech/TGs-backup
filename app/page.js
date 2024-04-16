@@ -5,7 +5,7 @@ import * as notion from "@/lib/notion";
 export default async function Home() {
   const pageId = rootNotionPageId;
   const recordMap = await notion.getPage(pageId);
-  console.log(notion.getSiteMap(pageId));
+
   return (
     <main>
       <NotionPage recordMap={recordMap} />

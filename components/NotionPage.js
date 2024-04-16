@@ -1,6 +1,6 @@
 "use client";
 import { NotionRenderer } from "react-notion-x";
-// import { Collection } from "react-notion-x/build/third-party/collection";
+
 import dynamic from "next/dynamic";
 import "react-notion-x/src/styles.css";
 
@@ -12,6 +12,7 @@ const Collection = dynamic(() =>
 );
 
 export default function NotionPage({ recordMap }) {
+  console.log(recordMap);
   return (
     <NotionRenderer
       recordMap={recordMap}
