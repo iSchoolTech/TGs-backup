@@ -12,7 +12,6 @@ const Collection = dynamic(() =>
 );
 
 export default function NotionPage({ recordMap }) {
-  console.log(recordMap);
   return (
     <NotionRenderer
       recordMap={recordMap}
