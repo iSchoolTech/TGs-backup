@@ -15,7 +15,7 @@ const useScheme = (): [Scheme, SetScheme] => {
     initialData: "light",
   })
 
-  const scheme = data === "light" ? "light" : "dark"
+  const scheme = data === "light" ? "light" : "light"
 
   const setScheme = (scheme: "light" | "dark") => {
     setCookie("scheme", scheme)
