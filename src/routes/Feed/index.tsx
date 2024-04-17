@@ -2,13 +2,8 @@ import { useState } from "react"
 
 import SearchInput from "./SearchInput"
 import { FeedHeader } from "./FeedHeader"
-import Footer from "./Footer"
 import styled from "@emotion/styled"
 import TagList from "./TagList"
-import MobileProfileCard from "./MobileProfileCard"
-import ProfileCard from "./ProfileCard"
-import ServiceCard from "./ServiceCard"
-import ContactCard from "./ContactCard"
 import PostList from "./PostList"
 
 const HEADER_HEIGHT = 73
@@ -29,29 +24,12 @@ const Feed: React.FC<Props> = () => {
         <TagList />
       </div>
       <div className="mid">
-        <MobileProfileCard />
         <SearchInput value={q} onChange={(e) => setQ(e.target.value)} />
         <div className="tags">
           <TagList />
         </div>
         <FeedHeader />
         <PostList q={q} />
-        <div className="footer">
-          <Footer />
-        </div>
-      </div>
-      <div
-        className="rt"
-        css={{
-          height: `calc(100vh - ${HEADER_HEIGHT}px)`,
-        }}
-      >
-        <ProfileCard />
-        <ServiceCard />
-        <ContactCard />
-        <div className="footer">
-          <Footer />
-        </div>
       </div>
     </StyledWrapper>
   )
@@ -102,35 +80,6 @@ const StyledWrapper = styled.div`
       @media (min-width: 1024px) {
         display: none;
       }
-    }
-
-    > .footer {
-      padding-bottom: 2rem;
-      @media (min-width: 1024px) {
-        display: none;
-      }
-    }
-  }
-
-  > .rt {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    display: none;
-    overflow: scroll;
-    position: sticky;
-    top: ${HEADER_HEIGHT - 10}px;
-
-    @media (min-width: 1024px) {
-      display: block;
-      grid-column: span 3 / span 3;
-    }
-
-    .footer {
-      padding-top: 1rem;
     }
   }
 `
