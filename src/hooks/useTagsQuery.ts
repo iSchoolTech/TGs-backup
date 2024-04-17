@@ -3,7 +3,8 @@ import { getAllSelectItemsFromPosts } from "src/libs/utils/notion"
 
 export const useTagsQuery = () => {
   const posts = usePostsQuery()
-  const tags = getAllSelectItemsFromPosts("tags", posts)
+
+  const tags = getAllSelectItemsFromPosts("Module Code", posts)
 
   return tags
 }

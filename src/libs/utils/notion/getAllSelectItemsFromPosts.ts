@@ -1,9 +1,6 @@
 import { TPosts } from "src/types"
 
-export function getAllSelectItemsFromPosts(
-  key: "tags" | "category",
-  posts: TPosts
-) {
+export function getAllSelectItemsFromPosts(key: "Module Code", posts: TPosts) {
   const selectedPosts = posts.filter((post) => post?.[key])
   const items = [...selectedPosts.map((p) => p[key]).flat()]
   const itemObj: { [itemName: string]: number } = {}
