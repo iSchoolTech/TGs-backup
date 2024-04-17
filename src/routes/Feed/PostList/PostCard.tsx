@@ -1,6 +1,4 @@
 import Link from "next/link"
-import { CONFIG } from "site.config"
-import { formatDate } from "src/libs/utils"
 import Tag from "../../../components/Tag"
 import { TPost } from "../../../types"
 import Image from "next/image"
@@ -32,27 +30,14 @@ const PostCard: React.FC<Props> = ({ data }) => {
             />
           </div>
         )}
-        <div data-thumb={!!data.thumbnail} data-category={!!category} className="content">
+        <div
+          data-thumb={!!data.thumbnail}
+          data-category={!!category}
+          className="content"
+        >
           <header className="top">
             <h2>{data.title}</h2>
           </header>
-          <div className="date">
-            <div className="content">
-              {formatDate(
-                data?.date?.start_date || data.createdTime,
-                CONFIG.lang
-              )}
-            </div>
-          </div>
-          <div className="summary">
-            <p>{data.summary}</p>
-          </div>
-          <div className="tags">
-            {data.tags &&
-              data.tags.map((tag: string, idx: number) => (
-                <Tag key={idx}>{tag}</Tag>
-              ))}
-          </div>
         </div>
       </article>
     </StyledWrapper>
@@ -118,41 +103,15 @@ const StyledWrapper = styled(Link)`
         }
         h2 {
           margin-bottom: 0.5rem;
-          font-size: 1.125rem;
+          font-size: 1.4rem;
           line-height: 1.75rem;
           font-weight: 500;
 
           cursor: pointer;
 
           @media (min-width: 768px) {
-            font-size: 1.25rem;
+            font-size: 1.4rem;
             line-height: 1.75rem;
-          }
-        }
-      }
-      > .date {
-        display: flex;
-        margin-bottom: 1rem;
-        gap: 0.5rem;
-        align-items: center;
-        .content {
-          font-size: 0.875rem;
-          line-height: 1.25rem;
-          color: ${({ theme }) => theme.colors.gray10};
-          @media (min-width: 768px) {
-            margin-left: 0;
-          }
-        }
-      }
-      > .summary {
-        margin-bottom: 1rem;
-        p {
-          display: none;
-          line-height: 2rem;
-          color: ${({ theme }) => theme.colors.gray11};
-
-          @media (min-width: 768px) {
-            display: block;
           }
         }
       }
