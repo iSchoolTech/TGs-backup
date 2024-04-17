@@ -15,7 +15,7 @@ const PostList: React.FC<Props> = ({ q }) => {
 
   const currentTag = `${router.query.tag || ``}` || undefined
   const currentCategory = `${router.query.category || ``}` || DEFAULT_CATEGORY
-  const currentOrder = `${router.query.order || ``}` || "desc"
+  const currentOrder = `${router.query.order || ``}` || "asc"
 
   useEffect(() => {
     setFilteredPosts(() => {
@@ -42,7 +42,7 @@ const PostList: React.FC<Props> = ({ q }) => {
         )
       }
       // order
-      if (currentOrder !== "desc") {
+      if (currentOrder === "desc") {
         newFilteredPosts = newFilteredPosts.reverse()
       }
 

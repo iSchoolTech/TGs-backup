@@ -9,7 +9,7 @@ type Props = {}
 const OrderButtons: React.FC<Props> = () => {
   const router = useRouter()
 
-  const currentOrder = `${router.query.order || ``}` || ("desc" as TOrder)
+  const currentOrder = `${router.query.order || ``}` || ("asc" as TOrder)
 
   const handleClickOrderBy = (value: TOrder) => {
     router.push({
