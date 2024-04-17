@@ -13,8 +13,8 @@ import usePostQuery from "src/hooks/usePostQuery"
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
 
 const filter: FilterPostsOptions = {
-  acceptStatus: ["Public", "PublicOnDetail"],
-  acceptType: ["Paper", "Post", "Page"],
+  acceptStatus: "Ready",
+  acceptType: "K12",
 }
 
 export const getStaticPaths = async () => {
@@ -22,7 +22,7 @@ export const getStaticPaths = async () => {
   const filteredPost = filterPosts(posts, filter)
 
   return {
-    paths: filteredPost.map((row) => `/${row.slug}`),
+    paths: filteredPost.map((row) => `/${row["Teacher Guide Name"]}`),
     fallback: true,
   }
 }
@@ -35,7 +35,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
   await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
 
   const detailPosts = filterPosts(posts, filter)
-  const postDetail = detailPosts.find((t: any) => t.slug === slug)
+  const postDetail = detailPosts.find(
+    (t: any) => t["Teacher Guide Name"] === slug
+  )
   const recordMap = await getRecordMap(postDetail?.id!)
 
   await queryClient.prefetchQuery(queryKey.post(`${slug}`), () => ({
@@ -59,17 +61,19 @@ const DetailPage: NextPageWithLayout = () => {
   const image =
     post.thumbnail ??
     CONFIG.ogImageGenerateURL ??
-    `${CONFIG.ogImageGenerateURL}/${encodeURIComponent(post.title)}.png`
+    `${CONFIG.ogImageGenerateURL}/${encodeURIComponent(
+      post["Teacher Guide Name"]
+    )}.png`
 
   const date = post.date?.start_date || post.createdTime || ""
 
   const meta = {
-    title: post.title,
+    title: post["Teacher Guide Name"],
     date: new Date(date).toISOString(),
     image: image,
-    description: post.summary || "",
-    type: post.type[0],
-    url: `${CONFIG.link}/${post.slug}`,
+    description: "",
+    type: post.Type,
+    url: `${CONFIG.link}/${post["Teacher Guide Name"]}`,
   }
 
   return (

@@ -10,7 +10,6 @@ import { TPosts } from "src/types"
  * @param {{ includePages: boolean }} - false: posts only / true: include pages
  */
 
-// TODO: react query를 사용해서 처음 불러온 뒤로는 해당데이터만 사용하도록 수정
 export const getPosts = async () => {
   let id = CONFIG.notionConfig.pageId as string
   const api = new NotionAPI({
@@ -38,13 +37,14 @@ export const getPosts = async () => {
     for (let i = 0; i < pageIds.length; i++) {
       const id = pageIds[i]
       const properties = (await getPageProperties(id, block, schema)) || null
-      // Add fullwidth, createdtime to properties
+
+      // Add type, module code, createdtime to properties
       properties.createdTime = new Date(
         block[id].value?.created_time
       ).toString()
-      properties.fullWidth =
-        (block[id].value?.format as any)?.page_full_width ?? false
 
+      properties["Module Code"] = properties["Module Code"][0]
+      properties.Type = properties.Type[0]
       data.push(properties)
     }
 
@@ -56,6 +56,7 @@ export const getPosts = async () => {
     })
 
     const posts = data as TPosts
+
     return posts
   }
 }

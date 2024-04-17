@@ -1,7 +1,5 @@
 import { CONFIG } from "site.config"
-import Tag from "src/components/Tag"
 import { TPost } from "src/types"
-import { formatDate } from "src/libs/utils"
 import Image from "next/image"
 import React from "react"
 import styled from "@emotion/styled"
@@ -13,46 +11,37 @@ type Props = {
 const PostHeader: React.FC<Props> = ({ data }) => {
   return (
     <StyledWrapper>
-      <h1 className="title">{data.title}</h1>
-      {data.type[0] !== "Paper" && (
-        <nav>
-          <div className="top">
-            {data.author && data.author[0] && data.author[0].name && (
-              <>
-                <div className="author">
-                  <Image
-                    css={{ borderRadius: "50%" }}
-                    src={data.author[0].profile_photo || CONFIG.profile.image}
-                    alt="profile_photo"
-                    width={24}
-                    height={24}
-                  />
-                  <div className="">{data.author[0].name}</div>
-                </div>
-              </>
-            )}
-          </div>
-          <div className="mid">
-            {data.tags && (
-              <div className="tags">
-                {data.tags.map((tag: string) => (
-                  <Tag key={tag}>{tag}</Tag>
-                ))}
+      <h1 className="title">{data["Teacher Guide Name"]}</h1>
+
+      <nav>
+        <div className="top">
+          {data.author && data.author[0] && data.author[0].name && (
+            <>
+              <div className="author">
+                <Image
+                  css={{ borderRadius: "50%" }}
+                  src={data.author[0].profile_photo || CONFIG.profile.image}
+                  alt="profile_photo"
+                  width={24}
+                  height={24}
+                />
+                <div className="">{data.author[0].name}</div>
               </div>
-            )}
-          </div>
-          {data.thumbnail && (
-            <div className="thumbnail">
-              <Image
-                src={data.thumbnail}
-                css={{ objectFit: "cover" }}
-                fill
-                alt={data.title}
-              />
-            </div>
+            </>
           )}
-        </nav>
-      )}
+        </div>
+
+        {data.thumbnail && (
+          <div className="thumbnail">
+            <Image
+              src={data.thumbnail}
+              css={{ objectFit: "cover" }}
+              fill
+              alt={data["Teacher Guide Name"]}
+            />
+          </div>
+        )}
+      </nav>
     </StyledWrapper>
   )
 }

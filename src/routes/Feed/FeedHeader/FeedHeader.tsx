@@ -1,4 +1,3 @@
-import { TCategories } from "src/types"
 import React from "react"
 import OrderButtons from "./OrderButtons"
 import styled from "@emotion/styled"

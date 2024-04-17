@@ -13,8 +13,9 @@ const PostList: React.FC<Props> = ({ q }) => {
   const data = usePostsQuery()
   const [filteredPosts, setFilteredPosts] = useState(data)
 
-  const currentTag = `${router.query.tag || ``}` || undefined
-  const currentCategory = `${router.query.category || ``}` || DEFAULT_CATEGORY
+  const currentTag = `${router.query["Module Code"] || ``}` || undefined
+  const currentCategory =
+    `${router.query["Module Code"] || ``}` || DEFAULT_CATEGORY
   const currentOrder = `${router.query.order || ``}` || "asc"
 
   useEffect(() => {
@@ -22,15 +23,18 @@ const PostList: React.FC<Props> = ({ q }) => {
       let newFilteredPosts = data
       // keyword
       newFilteredPosts = newFilteredPosts.filter((post) => {
-        const tagContent = post.tags ? post.tags.join(" ") : ""
-        const searchContent = post.title + post.summary + tagContent
+        const tagContent = post["Module Code"] ? post["Module Code"] : ""
+        const searchContent = post["Teacher Guide Name"] + tagContent
         return searchContent.toLowerCase().includes(q.toLowerCase())
       })
 
       // tag
       if (currentTag) {
         newFilteredPosts = newFilteredPosts.filter(
-          (post) => post && post.tags && post.tags.includes(currentTag)
+          (post) =>
+            post &&
+            post["Module Code"] &&
+            post["Module Code"].includes(currentTag)
         )
       }
 
@@ -38,7 +42,9 @@ const PostList: React.FC<Props> = ({ q }) => {
       if (currentCategory !== DEFAULT_CATEGORY) {
         newFilteredPosts = newFilteredPosts.filter(
           (post) =>
-            post && post.category && post.category.includes(currentCategory)
+            post &&
+            post["Module Code"] &&
+            post["Module Code"].includes(currentCategory)
         )
       }
       // order

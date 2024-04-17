@@ -1,5 +1,4 @@
 import Link from "next/link"
-import Tag from "../../../components/Tag"
 import { TPost } from "../../../types"
 import Image from "next/image"
 import Category from "../../../components/Category"
@@ -10,10 +9,10 @@ type Props = {
 }
 
 const PostCard: React.FC<Props> = ({ data }) => {
-  const category = (data.category && data.category?.[0]) || undefined
+  const category = data["Module Code"] || undefined
 
   return (
-    <StyledWrapper href={`/${data.slug}`}>
+    <StyledWrapper href={`/${data["Teacher Guide Name"]}`}>
       <article>
         {category && (
           <div className="category">
@@ -25,7 +24,7 @@ const PostCard: React.FC<Props> = ({ data }) => {
             <Image
               src={data.thumbnail}
               fill
-              alt={data.title}
+              alt={data["Teacher Guide Name"]}
               css={{ objectFit: "cover" }}
             />
           </div>
@@ -36,7 +35,7 @@ const PostCard: React.FC<Props> = ({ data }) => {
           className="content"
         >
           <header className="top">
-            <h2>{data.title}</h2>
+            <h2>{data["Teacher Guide Name"]}</h2>
           </header>
         </div>
       </article>

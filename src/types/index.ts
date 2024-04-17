@@ -12,27 +12,33 @@ export type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
-export type TPostStatus = "Private" | "Public" | "PublicOnDetail"
-export type TPostType = "Post" | "Paper" | "Page"
+export type TPostProductionState =
+  | "Not started"
+  | "In progress"
+  | "In Review"
+  | "In Edits"
+  | "In Final Review"
+  | "In Final Edits"
+  | "In Visual Review"
+  | "Ready"
+  | "Published"
+export type TPostType = "K12"
 
 export type TPost = {
   id: string
   date: { start_date: string }
-  type: TPostType[]
-  slug: string
-  tags?: string[]
-  category?: string[]
-  summary?: string
+  createdTime: string
+  Type: TPostType
+  "Teacher Guide Name": string
+  "Module Code": string
+  "Production State": TPostProductionState
+  "Slides Link": string
+  thumbnail?: string
   author?: {
     id: string
     name: string
     profile_photo?: string
   }[]
-  title: string
-  status: TPostStatus[]
-  createdTime: string
-  fullWidth: boolean
-  thumbnail?: string
 }
 
 export type PostDetail = TPost & {
@@ -41,11 +47,8 @@ export type PostDetail = TPost & {
 
 export type TPosts = TPost[]
 
-export type TTags = {
-  [tagName: string]: number
-}
-export type TCategories = {
-  [category: string]: number
+export type TModuleCodes = {
+  [moduleCode: string]: number
 }
 
 export type ThemeType = "dark" | "light"
