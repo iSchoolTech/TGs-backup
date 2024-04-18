@@ -12,7 +12,7 @@ const PostHeader: React.FC<Props> = ({ data }) => {
   return (
     <StyledWrapper>
       <h1 className="title">{data["Teacher Guide Name"]}</h1>
-
+      {/* TODO: presentation link */}
       <nav>
         <div className="top">
           {data.author && data.author[0] && data.author[0].name && (
