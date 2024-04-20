@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import PostHeader from "./PostHeader"
 import Footer from "./PostFooter"
