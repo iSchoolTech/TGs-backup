@@ -22,7 +22,7 @@ export const getStaticPaths = async () => {
   const filteredPost = filterPosts(posts, filter)
 
   return {
-    paths: filteredPost.map((row) => `/${row["Teacher Guide Name"]}`),
+    paths: filteredPost.map((row) => `/${row.id}`),
     fallback: true,
   }
 }
