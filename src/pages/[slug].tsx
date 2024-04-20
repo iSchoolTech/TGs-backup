@@ -11,7 +11,7 @@ import { queryKey } from "src/constants/queryKey"
 import { dehydrate } from "@tanstack/react-query"
 import usePostQuery from "src/hooks/usePostQuery"
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
-let slug: string
+
 const filter: FilterPostsOptions = {
   acceptStatus: "Ready",
   acceptType: "K12",
@@ -22,26 +22,26 @@ export const getStaticPaths = async () => {
   const filteredPost = filterPosts(posts, filter)
 
   return {
-    paths: filteredPost.map((row) => `/${row.id}`),
+    paths: filteredPost.map((row) => `/${row["Teacher Guide Name"]}`),
     fallback: true,
   }
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  slug = context.params?.slug as string
+  const slug = context.params?.slug
 
-  // const posts = await getPosts()
-  // const feedPosts = filterPosts(posts)
-  // await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
+  const posts = await getPosts()
+  const feedPosts = filterPosts(posts)
+  await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
 
-  // const detailPosts = filterPosts(posts, filter)
-  // const postDetail = detailPosts.find(
-  //   (t: any) => t["Teacher Guide Name"] === slug
-  // )
-  const recordMap = await getRecordMap(slug)
-  console.log(recordMap)
+  const detailPosts = filterPosts(posts, filter)
+  const postDetail = detailPosts.find(
+    (t: any) => t["Teacher Guide Name"] === slug
+  )
+  const recordMap = await getRecordMap(postDetail?.id!)
+
   await queryClient.prefetchQuery(queryKey.post(`${slug}`), () => ({
-    // ...postDetail,
+    ...postDetail,
     recordMap,
   }))
 
@@ -58,22 +58,22 @@ const DetailPage: NextPageWithLayout = () => {
 
   if (!post) return <CustomError />
 
-  // const image =
-  //   post.thumbnail ??
-  //   CONFIG.ogImageGenerateURL ??
-  //   `${CONFIG.ogImageGenerateURL}/${encodeURIComponent(
-  //     post["Teacher Guide Name"]
-  //   )}.png`
+  const image =
+    post.thumbnail ??
+    CONFIG.ogImageGenerateURL ??
+    `${CONFIG.ogImageGenerateURL}/${encodeURIComponent(
+      post["Teacher Guide Name"]
+    )}.png`
 
-  // const date = post.date?.start_date || post.createdTime || ""
+  const date = post.date?.start_date || post.createdTime || ""
 
   const meta = {
-    title: "test",
-    date: new Date().toISOString(),
-    // image: image,
+    title: post["Teacher Guide Name"],
+    date: new Date(date).toISOString(),
+    image: image,
     description: "",
     type: post.Type,
-    url: `${CONFIG.link}/${slug}`,
+    url: `${CONFIG.link}/${post["Teacher Guide Name"]}`,
   }
 
   return (
