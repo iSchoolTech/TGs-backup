@@ -12,7 +12,7 @@ const PostCard: React.FC<Props> = ({ data }) => {
   const category = data["Module Code"] || undefined
 
   return (
-    <StyledWrapper href={`/${data["Teacher Guide Name"]}`}>
+    <StyledWrapper href={`/${data.id}`}>
       <article>
         {category && (
           <div className="category">
